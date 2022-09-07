@@ -1,38 +1,55 @@
-# create-svelte
+# @terrygonguet/svelte-fullscreen
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A very simple [Svelte](https://svelte.dev/) [action](https://svelte.dev/docs#template-syntax-element-directives-use-action) to make elements go [fullscreen](https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API).
 
-## Creating a project
+## Installation
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+```
+npm install @terrygonguet/svelte-fullscreen
 ```
 
-## Developing
+## Example
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```svelte
+<script>
+	import { useFullscreen } from "@terrygonguet/svelte-fullscreen"
 
-```bash
-npm run dev
+	const { fullscreen, enter, exit, toggle } = useFullscreen()
+</script>
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+<svelte:window on:fullscreenchange={console.log} />
+
+<!-- The <main> element will go fullscreen -->
+<main use:fullscreen>
+	<button on:click={enter}>Go fullscreen</button>
+	<button on:click={exit}>Exit fullscreen</button>
+	<button on:click={toggle}>Toggle fullscreen</button>
+</main>
+
+<style>
+	main:fullscreen {
+		border: 2px solid red;
+	}
+</style>
 ```
 
-## Building
+## Usage
 
-To create a production version of your app:
+Call the `useFullscreen` function in your component and `use:` the `fullscreen` property of the returned object on the element you want to go fullscreen. The `enter`, `exit` and `toggle` functions do what their names imply and return a promise that completes when the process is done, same as the underlying [Fullscreen API](https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API).
 
-```bash
-npm run build
+## API
+
+### `function useFullscreen`
+
+```typescript
+function useFullscreen(options?: FullscreenOptions): {
+	fullscreen: Action
+	enter(): Promise<void>
+	exit(): Promise<void>
+	toggle(): Promise<void>
+}
 ```
 
-You can preview the production build with `npm run preview`.
+### `type Fullscreenoptions`
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+See details on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen).
