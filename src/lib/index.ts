@@ -19,7 +19,8 @@ export function useFullscreen(options?: FullscreenOptions) {
 		},
 		toggle() {
 			if (!document.fullscreenEnabled) return Promise.resolve()
-			if (!document.fullscreenElement && element) return element.requestFullscreen(options)
+			if (!element) return Promise.resolve()
+			if (!document.fullscreenElement) return element.requestFullscreen(options)
 			else return document.exitFullscreen()
 		},
 	}
