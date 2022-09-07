@@ -10,26 +10,26 @@ npm install @terrygonguet/svelte-fullscreen
 
 ## Example
 
-```svelte
+```html
 <script>
-	import { useFullscreen } from "@terrygonguet/svelte-fullscreen"
+    import { useFullscreen } from "@terrygonguet/svelte-fullscreen"
 
-	const { fullscreen, enter, exit, toggle } = useFullscreen()
+    const { fullscreen, enter, exit, toggle } = useFullscreen()
 </script>
 
 <svelte:window on:fullscreenchange={console.log} />
 
 <!-- The <main> element will go fullscreen -->
 <main use:fullscreen>
-	<button on:click={enter}>Go fullscreen</button>
-	<button on:click={exit}>Exit fullscreen</button>
-	<button on:click={toggle}>Toggle fullscreen</button>
+    <button on:click={enter}>Go fullscreen</button>
+    <button on:click={exit}>Exit fullscreen</button>
+    <button on:click={toggle}>Toggle fullscreen</button>
 </main>
 
 <style>
-	main:fullscreen {
-		border: 2px solid red;
-	}
+    main:fullscreen {
+        border: 2px solid red;
+    }
 </style>
 ```
 
@@ -43,10 +43,10 @@ Call the `useFullscreen` function in your component and `use:` the `fullscreen` 
 
 ```typescript
 function useFullscreen(options?: FullscreenOptions): {
-	fullscreen: Action
-	enter(): Promise<void>
-	exit(): Promise<void>
-	toggle(): Promise<void>
+    fullscreen: Action
+    enter(): Promise<void>
+    exit(): Promise<void>
+    toggle(): Promise<void>
 }
 ```
 
